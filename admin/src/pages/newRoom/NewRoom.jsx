@@ -12,9 +12,9 @@ const NewRoom = () => {
   const [hotelId, setHotelId] = useState(undefined);
   const [rooms, setRooms] = useState([]);
 
-  const { data, loading, error } = useFetch("/api/hotels"); // this will fetch the list of hotels from the API endpoint specially rooms
+  // const { data, loading, error } = useFetch("/api/hotels"); // this will fetch the list of hotels from the API endpoint specially rooms
   // this will be used to populate the dropdown for selecting a hotel when creating a new room
-
+    const { data, loading, error } = useFetch("/hotels");
 
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -25,7 +25,8 @@ const NewRoom = () => {
     e.preventDefault();
     const roomNumbers = rooms.split(",").map((room) => ({ number: room })); // this will split the string of room numbers by commas and create an array of objects with a number property
     try {
-      await axios.post(`/api/rooms/${hotelId}`, { ...info, roomNumbers });  // this will send a POST request to the backend to create a new room with the hotel ID and room information
+      // await axios.post(`/api/rooms/${hotelId}`, { ...info, roomNumbers });  // this will send a POST request to the backend to create a new room with the hotel ID and room information
+    await axios.post(`${process.env.REACT_APP_API_URL}/rooms/${hotelId}`, { ...info, roomNumbers });
     } catch (err) {
       console.log(err);
     }

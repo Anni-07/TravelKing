@@ -5,6 +5,9 @@ import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUpload
 import { useState } from "react";
 import axios from "axios";
 
+
+const API = process.env.REACT_APP_API_URL;
+
 const New = ({ inputs, title }) => {
   const [file, setFile] = useState("");
   const [info, setInfo] = useState({});
@@ -37,7 +40,8 @@ const handleClick = async (e) => {
       img: url, // Use the URL from the upload response
     };
     console.log("New User Data:", newUser);
-     await axios.post("/api/auth/register", newUser); 
+    //  await axios.post("/api/auth/register", newUser); 
+    await axios.post(`${API}/auth/register`, newUser); // Use the API URL from .env to register a new user
     // await axios.post("http://localhost:8000/api/auth/register", newUser); //  this is the endpoint to register a new user   
     // console.log("Uploaded:", uploadRes.data);
   } catch (err) {

@@ -7,12 +7,14 @@ import { hotelInputs } from "../../formSource";
 import useFetch from "../../hooks/useFetch";
 import axios from "axios";
 
+const API = process.env.REACT_APP_API_URL;
+
 const NewHotel = () => {
   const [files, setFiles] = useState("");
   const [info, setInfo] = useState({});
   const [rooms, setRooms] = useState([]);
 
-  const { data, loading, error } = useFetch("/api/rooms");
+  const { data, loading, error } = useFetch("/rooms");
 
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -62,7 +64,7 @@ const NewHotel = () => {
 
       const token = localStorage.getItem("token");
 
-      await axios.post("/api/hotels", newhotel, {
+      await axios.post(`${API}/hotels`, newhotel, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

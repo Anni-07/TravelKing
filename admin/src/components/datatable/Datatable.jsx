@@ -28,13 +28,15 @@ import axios from "axios";
 // → React displays the users in a table
 
 
-
+const API = process.env.REACT_APP_API_URL;
 
 const Datatable = ({columns}) => {
   const location  = useLocation();
   const path = location.pathname.split("/")[1];
   const [list, setList] = useState([]);
-const {data, loading, error} = useFetch(`/api/${path}`); // this will fetch user data from the API endpoint
+// const {data, loading, error} = useFetch(`/api/${path}`); // this will fetch user data from the API endpoint
+ const { data, loading, error } = useFetch(`/${path}`);
+
 
  useEffect(()=>{
   setList(data)
@@ -43,7 +45,10 @@ const {data, loading, error} = useFetch(`/api/${path}`); // this will fetch user
   const handleDelete = async (id) => {
     try{
       // await axios.delete(`/${path}/${id}`)
-      await axios.delete(`/api/${path}/${id}`);
+
+      // await axios.delete(`/api/${path}/${id}`); // this will send a DELETE request to the backend to delete a user by ID
+        await axios.delete(`${API}/${path}/${id}`);
+
       setList(list.filter((item) => item._id !== id));
     }
     catch(err){}
