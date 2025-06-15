@@ -26,7 +26,9 @@ const handleClick = async (e) => {
     e.preventDefault();
     dispatch({type: "LOGIN_START"});
     try {
-        const res = await axios.post("/auth/login", credentials);
+        // const res = await axios.post("/auth/login", credentials);
+        const res = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/auth/login`, credentials);
+
         dispatch({type: "LOGIN_SUCCESS", payload: res.data.details});
         navigate("/"); // Redirect to home page after successful login
     } catch (err) {
