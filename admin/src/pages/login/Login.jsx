@@ -28,7 +28,7 @@ const handleClick = async (e) => {
     try {
         // const res = await axios.post("/api/auth/login", credentials);
         // const res = await axios.post("http://localhost:8000/api/auth/login", credentials);
-        const res = await axios.post(`${REACT_APP_API_URL}/auth/login`, credentials);
+        const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, credentials);
         dispatch({type: "LOGIN_SUCCESS", payload: res.data});
         if(res.data.isAdmin) {
             dispatch({type: "LOGIN_SUCCESS", payload: res.data.details});
